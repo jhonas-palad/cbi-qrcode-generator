@@ -12,34 +12,26 @@ const _download = (refElement) => {
 }
 
 const copyToCanvas = (refElement, scale = 10)=>{
-    const svg = refElement;
-    const svgData = new XMLSerializer().serializeToString(refElement);
-    const canvas = document.createElement('canvas');
-    const svgSize = svg.getBoundingClientRect();
-    canvas.width = svgSize.width * scale;
-    canvas.height = svgSize.height * scale;
-    canvas.style.width = svgSize.width;
-    canvas.style.height = svgSize.height;
 
-    const context = canvas.getContext('2d');
-    context.scale(10, 10)
-    const img = document.createElement('img');
-    img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
-    
+    const qrCanvas = document.getElementById('generated_qrcode');
+
     return new Promise(resolve => {
-      img.onload = () => {
-        ctxt.drawImage(img, 0, 0);
-        const file = canvas.toDataURL(`image/${format}`, (format = 'png'), quality);
-        resolve(file);
-      };
+      resolve(qrCanvas);
     });
 }; 
 
 
 const downloadFile = async (refElement, filename) => {
   return copyToCanvas(refElement).then(
-    file => {
-      
+    canvas => {
+      // const urlDownload = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      const urlDownload = canvas.toDataURL('image/png')
+      const anchorTag = document.createElement("a");
+      anchorTag.href = urlDownload;
+      anchorTag.download=filename;
+      document.body.appendChild(anchorTag);
+      anchorTag.click();
+      document.body.removeChild(anchorTag);
     }
   )
 }
@@ -85,7 +77,7 @@ function App() {
         <QRCode size={128 * 2} value={urlToConvert}/>
       </div> */}
       <div>
-        <QRCode id="generated_qrcode" size={128 * 2} value={urlToConvert} ref={qrRef}/>
+        <QRCodeCanvas style={{padding:10, background:"red"}} id="generated_qrcode" size={128 * 2} value={urlToConvert}/>
       </div>
       <div>
         <button onClick={downloadSVG}>
