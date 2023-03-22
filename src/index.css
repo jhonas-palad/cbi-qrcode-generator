@@ -1,23 +1,22 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #FAFAFA 0% 0% no-repeat padding-box;
-  font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #FAFAFA 0% 0% no-repeat padding-box;
+    font-family: 'Roboto', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 a {
     text-decoration: none;
 }
-
+.mb-1{
+    margin-bottom: 1rem;
+}
 .flex {
     display: flex;
     flex-direction: var(--flex-dir);
@@ -39,6 +38,7 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 }
 
 .form-group{
@@ -53,15 +53,15 @@ a {
     opacity: 1;
 }
 .form-group input{
-    width: 326px;
     height: 50px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #ED184B5C;
     border-radius: 16px;
-    opacity: 1;
 }
 .form-group input:focus{
-    border-color: #ED184B;
+    outline: none;
 }
 
 .logo-name-row{
@@ -69,17 +69,20 @@ a {
 }
 
 .btn-cbi{
-    width: 326px;
+    width: 100%;
     height: 50px;
     /* UI Properties */
     background: #ED184B 0% 0% no-repeat padding-box;
     border-radius: 34px;
-    opacity: 1;
     border-color: transparent;
     color:#FFFFFFDE;
     cursor: pointer;
 }
-
+.btn-cbi:disabled{
+    opacity: 0.8;
+    cursor: default;
+}
 .btn-wrapper{
-    gap: 3;
+    width: 100%;
+    gap: 1.2rem;
 }
