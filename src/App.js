@@ -26,7 +26,7 @@ function App() {
                 CENTER FOR BUSINESS & INNOVATION
             </h3>
         </div> */}
-        <h2 style={{textAlign: 'center'}}>
+        <h2 style={{textAlign: 'center', marginBottom: '1em'}}>
             QR CODE <br/>
             GENERATOR
         </h2>
@@ -35,10 +35,9 @@ function App() {
             flexDirection: 'column',
             alignItems:'center',
             justifyContent: 'center',
-            gap: 10,
-            border: '1px solid'
+            gap: 10
         }}>
-            <div className='form-group'>
+            <div className='form-group' style={{marginBottom: '1em'}}>
                 <label>Enter your URL</label>
                 <input
                     onChange={(e)=>setUrlInput(e.target.value)}
@@ -54,10 +53,10 @@ function App() {
                     )
                 }   
             </div>
-            <div className="flex-col flex btn-wrapper">
+            <div className="flex-col flex flex-center btn-wrapper">
             {
                 !showDownload ? (
-                    <button onClick={()=> {
+                    <button className='btn-cbi' onClick={()=> {
                         setUrlToConvert(urlInput);
                         setShowDownload(true);
                         }} type="button">
@@ -65,18 +64,18 @@ function App() {
                     </button>
                 ) : (
                     <>
-                        <div>
+                        <div className='flex-col flex flex-center' style={{gap: '1em'}}>
 
-                            <select onChange={(e) => setFileType(e.target.value)} name="selectedType">
+                            <select  onChange={(e) => setFileType(e.target.value)} name="selectedType">
                                 <option value="png">PNG</option>
                                 <option value="jpg">JPEG</option>
                                 <option value="svg">SVG</option>
                             </select>
+                          <button className='btn-cbi' onClick={downloadQRCode}>
+                              Download
+                          </button>
+                          <a className='label' href={window.location.href}>Generate another QR code</a>
                         </div>
-                        <button onClick={downloadQRCode}>
-                            Download
-                        </button>
-                        <a href={window.location.href}>Generate another QR code</a>
                     </>
                 )
             }
