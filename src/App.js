@@ -19,10 +19,23 @@ function App() {
     }
 
   return (
+<<<<<<< HEAD
     <div className="center">
         <div className='logo-wrapper'>
             <img src={cbiLogo} width={200} height={64} />
         </div>
+=======
+    <div  className="center">
+        {/* <div className="flex-row flex flex-center logo-name-row">
+            <img src={require('./logo.png')} height="100" width="100" alt="cbi-logo" />
+            <h3>
+                CENTER FOR BUSINESS & INNOVATION
+            </h3>
+        </div> */}
+        <div style={{width: '326px'}}>
+
+        
+>>>>>>> 9acd35f08f7c5b6fd1a3b67f6ec7d99e3f751b64
         <h2 style={{textAlign: 'center', marginBottom: '1em'}}>
             QR CODE <br/>
             GENERATOR
@@ -32,11 +45,16 @@ function App() {
             flexDirection: 'column',
             alignItems:'center',
             justifyContent: 'center',
-            gap: 10
+            gap: 10,
+            
         }}>
             <div className='form-group' style={{marginBottom: '1em'}}>
-                <label>Enter your URL</label>
+                <label htmlFor="urlInput">Enter your URL</label>
                 <input
+                    id="urlInput"
+                    name="urlInput"
+                    title="Enter your URL"
+                    className='hello'
                     onChange={(e)=>setUrlInput(e.target.value)}
                     value={urlInput}
                     type='url'
@@ -56,29 +74,28 @@ function App() {
                     <button className='btn-cbi' onClick={()=> {
                         setUrlToConvert(urlInput);
                         setShowDownload(true);
-                        }} type="button">
+                        }} type="button"
+                        disabled={!urlInput}>
                             Generate
                     </button>
                 ) : (
                     <>
-                        <div className='flex-col flex flex-center' style={{gap: '1em'}}>
-
-                            <select  onChange={(e) => setFileType(e.target.value)} name="selectedType">
-                                <option value="png">PNG</option>
-                                <option value="jpg">JPEG</option>
-                                <option value="svg">SVG</option>
-                            </select>
-                          <button className='btn-cbi' onClick={downloadQRCode}>
-                              Download
-                          </button>
-                          <a className='label' href={window.location.href}>Generate another QR code</a>
-                        </div>
+                        <select className='' onChange={(e) => setFileType(e.target.value)} name="selectedType">
+                            <option value="png">PNG</option>
+                            <option value="jpg">JPEG</option>
+                            <option value="svg">SVG</option>
+                        </select>
+                        <button className='btn-cbi ' onClick={downloadQRCode}>
+                            Download
+                        </button>
+                        <a className='label' href={window.location.href}>Generate another QR code</a>
+                        
                     </>
                 )
             }
             </div>
 
-            
+            </div>
         </div>
     </div>
   );
