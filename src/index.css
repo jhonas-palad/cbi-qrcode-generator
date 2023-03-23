@@ -67,7 +67,10 @@ a {
 .logo-name-row{
     align-items: center;
 }
-
+.logo-wrapper{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 .btn-cbi{
     width: 326px;
     height: 50px;

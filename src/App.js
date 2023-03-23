@@ -4,7 +4,7 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { v4 as uuidv4 } from 'uuid';
 
 import './index.css';
-
+import cbiLogo from  './assets/CBI Logos-01.svg'
 //TODO:
 //Add css
 
@@ -20,12 +20,9 @@ function App() {
 
   return (
     <div className="center">
-        {/* <div className="flex-row flex flex-center logo-name-row">
-            <img src={require('./logo.png')} height="100" width="100" alt="cbi-logo" />
-            <h3>
-                CENTER FOR BUSINESS & INNOVATION
-            </h3>
-        </div> */}
+        <div className='logo-wrapper'>
+            <img src={cbiLogo} width={200} height={64} />
+        </div>
         <h2 style={{textAlign: 'center', marginBottom: '1em'}}>
             QR CODE <br/>
             GENERATOR
