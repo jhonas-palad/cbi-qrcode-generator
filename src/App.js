@@ -15,9 +15,14 @@ const App = () => {
     const [urlToConvert, setUrlToConvert] = useState("");
     const [fileType, setFileType] = useState("png");
     const [showDownload, setShowDownload] = useState(false);
+    const [hideSelect, setHideSelect] = useState(true);
     const downloadQRCode = () => {
         const generatedQRCodeRef = document.getElementById("generated_qrcode");
         downloadFile(generatedQRCodeRef, uuidv4(), fileType);
+    }
+    const selectFileType = (_fileType) => {
+        setFileType(_fileType);
+        setHideSelect( prevState => !prevState)
     }
     return(
         <AppContainer full>
@@ -70,15 +75,18 @@ const App = () => {
                             </button>
                         ) : (
                             <>
-                                <button className='dropdown-button btn-cbi'>
-                                    Download as {fileType?.toUpperCase()}
-                                    <ul className='dropdown-menu'>
-                                        <li className="opts">PNG</li>
-                                        <li className='opts'>JPG</li>
-                                        <li className='opts'>SVG</li>
+                                <div style={{position: 'relative'}}>
+                                    <button onClick={downloadQRCode} className='dropdown-button btn-cbi'>
+                                        Download as {fileType?.toUpperCase()}
+                                    </button>
+                                    <div onClick={()=> {setHideSelect( prevState => !prevState)}}  className='caret'/>
+                                    <ul className={`dropdown-menu ${hideSelect ? 'hide': ''}`}>
+                                        <li onClick={()=>selectFileType('png')} className="opts">PNG</li>
+                                        <li onClick={()=>selectFileType('jpg')} className='opts'>JPG</li>
+                                        <li onClick={()=>selectFileType('svg')} className='opts'>SVG</li>
                                     </ul>
-                                </button>
-
+                                </div>
+                                
 
                                 <a className='label' href={window.location.href}>Generate another QR code</a>
 
