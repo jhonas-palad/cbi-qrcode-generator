@@ -3,26 +3,28 @@ import { downloadFile } from './utils';
 import { QRCodeCanvas } from 'qrcode.react';
 import { v4 as uuidv4 } from 'uuid';
 
-import './index.css';
-import './cbi-style.css';
+import './static/cbi-style.css';
 import cbiLogo from  './assets/CBI Logos-01.svg'
 
 import AppContainer from './components/AppContainer';
 import Section from './components/Section';
+import ButtonSelect from './components/ButtonSelect';
+
+const FILETYPES_OPTS = [
+    {title: 'PNG', value: 'png'},
+    {title: 'JPG', value: 'jpg'},
+    {title: 'SVG', value: 'svg'}
+]
 
 const App = () => {
     const [urlInput, setUrlInput] = useState("");
     const [urlToConvert, setUrlToConvert] = useState("");
     const [fileType, setFileType] = useState("png");
     const [showDownload, setShowDownload] = useState(false);
-    const [hideSelect, setHideSelect] = useState(true);
+
     const downloadQRCode = () => {
         const generatedQRCodeRef = document.getElementById("generated_qrcode");
         downloadFile(generatedQRCodeRef, uuidv4(), fileType);
-    }
-    const selectFileType = (_fileType) => {
-        setFileType(_fileType);
-        setHideSelect( prevState => !prevState)
     }
     return(
         <AppContainer full>
@@ -75,21 +77,13 @@ const App = () => {
                             </button>
                         ) : (
                             <>
-                                <div style={{position: 'relative'}}>
-                                    <button onClick={downloadQRCode} className='dropdown-button btn-cbi'>
-                                        Download as {fileType?.toUpperCase()}
-                                    </button>
-                                    <div onClick={()=> {setHideSelect( prevState => !prevState)}}  className='caret'/>
-                                    <ul className={`dropdown-menu ${hideSelect ? 'hide': ''}`}>
-                                        <li onClick={()=>selectFileType('png')} className="opts">PNG</li>
-                                        <li onClick={()=>selectFileType('jpg')} className='opts'>JPG</li>
-                                        <li onClick={()=>selectFileType('svg')} className='opts'>SVG</li>
-                                    </ul>
-                                </div>
-                                
-
+                                <ButtonSelect 
+                                    title={`Download as ${fileType?.toUpperCase()}`}
+                                    opts={FILETYPES_OPTS}
+                                    optClick={setFileType}
+                                    btnClick={downloadQRCode}
+                                />
                                 <a className='label' href={window.location.href}>Generate another QR code</a>
-
                             </>
                         )
                     }
