@@ -12,7 +12,9 @@ function ButtonSelect({title, opts, optClick, btnClick}) {
             <button onClick={btnClick} className='dropdown-button btn-cbi'>
                 {title}
             </button>
-            <div onClick={()=> {setHideSelect( prevState => !prevState)}}  className='caret'/>
+            <div onClick={()=> {setHideSelect( prevState => !prevState)}}  className='caret-wrapper' style={{height: '100%'}}>
+                <div  className='caret'/>
+            </div>
             <ul className={`dropdown-menu ${hideSelect ? 'hide': ''}`}>
                 {
                     opts.map(({title, value}) => <li className='opts' onClick={()=>optionClick(value)}>{title}</li>)

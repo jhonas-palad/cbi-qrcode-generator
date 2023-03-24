@@ -6,19 +6,31 @@
     display: inline-block;
     cursor: pointer;
 }
+
 .caret {
-    z-index: 6;
-    position: absolute;
-    color:#2065be;
-    right: 10%;
-    top:50%;
-    transform: translateY(-49%);
+
     border-top: 6px solid #fff;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     cursor: default;
 }
 
+.caret-wrapper{
+    z-index: 6;
+    position: absolute;
+    left: 85%;
+    width: calc(15%);
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+}
+.caret-wrapper:hover{
+    opacity: 0.5;
+}
 .caret-rotate{
     transform: rotate(270deg);
 }
