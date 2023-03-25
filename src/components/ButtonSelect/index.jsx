@@ -1,6 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import '../static/button-select.css';
-import '../static/cbi-style.css';
+import './style.css';
 function ButtonSelect({title, opts, optClick, btnClick}) {
     const [hideSelect, setHideSelect] = useState(true);
     const optionClick = useCallback((value)=>{
