@@ -78,7 +78,7 @@ const App = () => {
                         ) : (
                             <>
                                 <ButtonSelect 
-                                    title={`Download as ${fileType?.toUpperCase()}`}
+                                    title="Download"
                                     opts={FILETYPES_OPTS}
                                     optClick={setFileType}
                                     btnClick={downloadQRCode}
