@@ -1,13 +1,14 @@
-import React, {useReducer, useCallback} from 'react';
+import React, {useReducer, useCallback} from 'react'
 import { downloadFile } from '../../utils';
+import { QRCodeCanvas } from 'qrcode.react';
 import { v4 as uuidv4 } from 'uuid';
 
-import './style.css';
-
+import QRCode from '../../components/QRCode';
+import FormGroup from '../../components/FormGroup';
 import Container from '../../components/Container';
 import ButtonSelect from '../../components/ButtonSelect';
-import FormGroup from '../../components/FormGroup';
-import QRCode from '../../components/QRCode';
+
+
 
 const FILETYPES_OPTS = [
     {title: 'PNG', value: 'png'},
@@ -43,20 +44,19 @@ const initState = {
     showDownload: false
 }
 
-const URLQRGenerator = () => {
+function VCardQRGenerator() {
     const [state, dispatch] = useReducer(reducer, initState);
     const downloadQRCode = useCallback((fileType) => {
         const generatedQRCodeRef = document.getElementById("generated_qrcode");
         downloadFile(generatedQRCodeRef, uuidv4(), fileType ?? state.fileType);
     }, [state.fileType, state.toConvert]);
-    return(
- 
+    return (
         <Container style={{flexGrow:1}} className="body">
-            <h1 style={{fontSize:27, fontWeight:'bold',textAlign: 'center'}}>
-                QR CODE <br/>
-                GENERATOR
-            </h1>
-            <div className='container'>
+                <h1 style={{fontSize:27, fontWeight:'bold',textAlign: 'center'}}>
+                    vCard QR CODE <br/>
+                    GENERATOR
+                </h1>
+                <div className='container'>
                 <FormGroup
                     label="Enter your URL"
                     id="urlInput"
@@ -69,7 +69,19 @@ const URLQRGenerator = () => {
                     type='url'
                     value={state.urlInput}
                 />
-                <QRCode value={`TELS:{093949161859}`} hidden={!state.toConvert}/>
+                <FormGroup
+                    label="Enter your URL"
+                    id="urlInput"
+                    name="urlInput"
+                    title="Enter your URL"
+                    className='hello'
+                    onChange={
+                        (e) => dispatch({type: 'urlInput', payload: {urlInput: e.target.value}})
+                    }
+                    type='url'
+                    value={state.urlInput}
+                />
+                <QRCode value={state.toConvert} hidden={!state.toConvert}/>
                 <div className="flex-col flex flex-center btn-wrapper">
                 {
                     !state.showDownload ? (
@@ -99,8 +111,8 @@ const URLQRGenerator = () => {
                 }
                 </div>
             </div>
-        </Container>
+            </Container>
     )
 }
 
-export default URLQRGenerator;
+export default VCardQRGenerator

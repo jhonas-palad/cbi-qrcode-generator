@@ -8,7 +8,6 @@
 }
 
 .caret {
-
     border-top: 6px solid #fff;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
@@ -28,9 +27,11 @@
     border-bottom-right-radius: 30px;
 
 }
+
 .caret-wrapper:hover{
     opacity: 0.5;
 }
+
 .caret-rotate{
     transform: rotate(270deg);
 }
