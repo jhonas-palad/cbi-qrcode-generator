@@ -1,26 +1,29 @@
 import React, {useReducer, useCallback} from 'react'
-import { downloadFile } from '../../utils';
-import { QRCodeCanvas } from 'qrcode.react';
+import { downloadFile, FILETYPES_OPTS } from '../utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import QRCode from '../../components/QRCode';
-import FormGroup from '../../components/FormGroup';
-import Container from '../../components/Container';
-import ButtonSelect from '../../components/ButtonSelect';
+import AddRemoveInput from '../components/AddRemoveInput';
+import QRCode from '../components/QRCode';
+import FormGroup from '../components/FormGroup';
+import Container from '../components/Container';
+import ButtonSelect from '../components/ButtonSelect';
 
-
-
-const FILETYPES_OPTS = [
-    {title: 'PNG', value: 'png'},
-    {title: 'JPG', value: 'jpg'},
-    {title: 'SVG', value: 'svg'}
-]
 
 const reducer = (state, action) => {
     const {type, payload} = action;
+    const {inputs} = state;
+    console.log(state);
     switch(type) {
-        case 'urlInput':
-            return {...state, ...payload};
+        case 'changeInput':
+            const {id, value, container} = payload;
+            // const inputContainer = inputs[container]
+            // const currentInputState = inputContainer[inputContainer.find(({_id}) => id === _id)];
+            // const updatedInputeState = {...currentInputState, value};
+            // const updatedState = {
+            //     ...state
+            // }
+            // updatedState.inputs[container] = 
+            return {...state, inputs: {...inputs, }};
         case 'changeFileType':
             return {
                 ...state,
@@ -32,13 +35,37 @@ const reducer = (state, action) => {
                 toConvert: state.urlInput,
                 showDownload: true
             };
+        case 'addInput':
+            
+            return {
+                ...state,
+                inputs: {
+                    ...inputs,
+                    addresses: [...inputs.addresses, payload]
+                }
+            }
+        case 'removeInput':
+            const newList = inputs.addresses.filter(({id}) => {
+                return payload.id !== id; 
+            })
+            return {
+                ...state,
+                inputs: {
+                    ...inputs,
+                    addresses: [...newList]
+                }
+            }
         default:
             throw new Error();
     }
 }
 
 const initState = {
-    urlInput: '',
+    inputs: {
+        addresses: [],
+        telnums: [],
+        emails: [],
+    },
     toConvert: '',
     fileType: 'png',
     showDownload: false
@@ -50,6 +77,11 @@ function VCardQRGenerator() {
         const generatedQRCodeRef = document.getElementById("generated_qrcode");
         downloadFile(generatedQRCodeRef, uuidv4(), fileType ?? state.fileType);
     }, [state.fileType, state.toConvert]);
+
+    const changeInput = (e, container) => {
+        const {id, value} = e.target;
+        dispatch({type:'changeInput', payload: {id, value, container}});
+    }
     return (
         <Container style={{flexGrow:1}} className="body">
                 <h1 style={{fontSize:27, fontWeight:'bold',textAlign: 'center'}}>
@@ -57,31 +89,13 @@ function VCardQRGenerator() {
                     GENERATOR
                 </h1>
                 <div className='container'>
-                <FormGroup
-                    label="Enter your URL"
-                    id="urlInput"
-                    name="urlInput"
-                    title="Enter your URL"
-                    className='hello'
-                    onChange={
-                        (e) => dispatch({type: 'urlInput', payload: {urlInput: e.target.value}})
-                    }
-                    type='url'
-                    value={state.urlInput}
+                <QRCode value={"ASD"} hidden={!state.toConvert}/>
+                <AddRemoveInput 
+                    container={state.inputs.addresses}
+                    onChange={changeInput} 
+                    addInput={()=>dispatch({type: 'addInput', payload: {id: uuidv4(), type:'', value:''}})} 
+                    removeInput={(id)=>dispatch({type: 'removeInput', payload: {id}})}
                 />
-                <FormGroup
-                    label="Enter your URL"
-                    id="urlInput"
-                    name="urlInput"
-                    title="Enter your URL"
-                    className='hello'
-                    onChange={
-                        (e) => dispatch({type: 'urlInput', payload: {urlInput: e.target.value}})
-                    }
-                    type='url'
-                    value={state.urlInput}
-                />
-                <QRCode value={state.toConvert} hidden={!state.toConvert}/>
                 <div className="flex-col flex flex-center btn-wrapper">
                 {
                     !state.showDownload ? (

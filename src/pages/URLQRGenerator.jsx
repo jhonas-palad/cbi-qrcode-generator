@@ -1,19 +1,12 @@
 import React, {useReducer, useCallback} from 'react';
-import { downloadFile } from '../../utils';
+import { downloadFile, FILETYPES_OPTS } from '../utils';
 import { v4 as uuidv4 } from 'uuid';
 
-import './style.css';
 
-import Container from '../../components/Container';
-import ButtonSelect from '../../components/ButtonSelect';
-import FormGroup from '../../components/FormGroup';
-import QRCode from '../../components/QRCode';
-
-const FILETYPES_OPTS = [
-    {title: 'PNG', value: 'png'},
-    {title: 'JPG', value: 'jpg'},
-    {title: 'SVG', value: 'svg'}
-]
+import Container from '../components/Container';
+import ButtonSelect from '../components/ButtonSelect';
+import FormGroup from '../components/FormGroup';
+import QRCode from '../components/QRCode';
 
 const reducer = (state, action) => {
     const {type, payload} = action;

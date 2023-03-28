@@ -1,13 +1,19 @@
-import { Outlet, Link } from "react-router-dom";
-import './style.css';
-import AppContainer from "../../components/AppContainer";
-import Container from "../../components/Container";
-import NavLinks from "../../components/NavLinks";
-import cbiLogo from '../../assets/images/CBI Logos-01.svg';
+import { Outlet, useLocation, useNavigate  } from "react-router-dom";
+import { useEffect } from "react";
+import AppContainer from "../components/AppContainer";
+import Container from "../components/Container";
+import NavLinks from "../components/NavLinks";
+import cbiLogo from '../assets/images/CBI Logos-01.svg';
+
 
 const Layout = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    useEffect(() => { 
+        location.pathname === '/' && navigate('url');
+    }, [location.pathname]);
     return (
-        <AppContainer base>
+        <AppContainer full base>
             <Container className="header">
                 <div className='logo-wrapper'>
                     <img src={cbiLogo} width={200} height={64} />

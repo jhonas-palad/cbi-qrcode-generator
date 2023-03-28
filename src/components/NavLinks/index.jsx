@@ -5,10 +5,10 @@ const NavLinks = () => {
     <nav >
         <ul>
             <li>
-                <Link to="urlgenerator">URL Generator</Link>
+                <Link to="url">URL Generator</Link>
             </li>
             <li>
-                <Link to="vcardgenerator">Virtual Card Generator</Link>
+                <Link to="vcard">Virtual Card Generator</Link>
             </li>
         </ul>
     </nav>
