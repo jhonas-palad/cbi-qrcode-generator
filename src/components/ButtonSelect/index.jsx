@@ -1,4 +1,5 @@
 import React, {useState, useCallback} from 'react';
+import { v4 } from 'uuid';
 import './style.css';
 function ButtonSelect({title, opts, optClick, btnClick}) {
     const [hideSelect, setHideSelect] = useState(true);
@@ -16,7 +17,7 @@ function ButtonSelect({title, opts, optClick, btnClick}) {
             </div>
             <ul className={`dropdown-menu ${hideSelect ? 'hide': ''}`}>
                 {
-                    opts.map(({title, value}) => <li className='opts' onClick={()=>optionClick(value)}>{title}</li>)
+                    opts.map(({title, value}) => <li className='opts' key={v4()} onClick={()=>optionClick(value)}>{title}</li>)
                 }
             </ul>
         </div>

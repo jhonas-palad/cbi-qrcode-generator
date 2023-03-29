@@ -62,7 +62,7 @@ const URLQRGenerator = () => {
                     type='url'
                     value={state.urlInput}
                 />
-                <QRCode value={`TELS:{093949161859}`} hidden={!state.toConvert}/>
+                <QRCode value={state.toConvert} hidden={!state.toConvert}/>
                 <div className="flex-col flex flex-center btn-wrapper">
                 {
                     !state.showDownload ? (

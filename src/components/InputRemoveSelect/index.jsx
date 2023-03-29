@@ -7,23 +7,19 @@ const TYPE_LABEL = [
     'school'
 ]
 
-const InputRemoveSelect = ({id, type, value, onChange, container,removeInput}) => {
+const InputRemoveSelect = ({id, type, value, onChange,removeInput, onChangeType}) => {
     const [labels, setLabels] = React.useState(TYPE_LABEL);
-    const labelClick = (e)=>{
-        const {value} = e?.target;
-    };
-
     return (
-        <div>
-            <select onChange={labelClick}>
+        <div key={id}>
+            <select onChange={onChangeType} id={id}>
                 {
-                    labels.map((label, index) => <option onClick={labelClick} key={index} value={label}>{label}</option>)
+                    labels.map((label, index) => <option key={index} value={label}>{label}</option>)
                 }
             </select>
             <input 
                 id={id}
                 value={value}
-                onChange={(e)=> onChange(e, type, container)}/>
+                onChange={onChange}/>
             <button onClick={()=>removeInput(id)}>-</button>
         </div>
     )
