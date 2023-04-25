@@ -8,7 +8,7 @@ function ButtonSelect({title, opts, optClick, btnClick}) {
         setHideSelect(prev => !prev);
     }, [optClick])
     return (
-        <div style={{position: 'relative'}}>
+        <div style={{position: 'relative', marginTop: '2.5rem'}}>
             <button onClick={btnClick} className='dropdown-button btn-cbi'>
                 {title}
             </button>
